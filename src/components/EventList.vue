@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import EventListItem from "@/components/EventListItem.vue"
+import EventListItem from '@/components/EventListItem.vue'
 
 export default {
-  name: "EventList",
+  name: 'EventList',
   props: {
     events: {
       type: Array,

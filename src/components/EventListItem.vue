@@ -1,6 +1,6 @@
 <template>
   <div class="event-list-item">
-    <div class="start-time">{{ weekdayShortName(startTime) }}, {{ timeToString(startTime) }}</div>
+    <div class="start-time">{{ startWeekdayShort }}, {{ startTimeString }}</div>
     <div class="left-padded">
       <div class="description">{{ description }}</div>
     </div>
@@ -9,15 +9,15 @@
     </div>
     <div v-if="location != null || endTime != null" class="left-padded top-margin">
       <div v-if="location != null" class="location">{{ location }}</div>
-      <div v-if="endTime != null" class="duration">{{ durationToString(endTime-startTime) }}</div>
-      <div v-if="endTime != null" class="end-time"> &rarr; {{ timeToString(endTime) }}</div>
+      <div v-if="endTime != null" class="duration">{{ durationString }}</div>
+      <div v-if="endTime != null" class="end-time"> &rarr; {{ endTimeString }}</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "EventListItem",
+  name: 'EventListItem',
   props: {
     description: {
       type: String,
@@ -41,24 +41,41 @@ export default {
     }
   },
   methods: {
-    weekdayShortName(date) {
-      return ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"][date.getDay()]
+    weekdayShort (date) {
+      return ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'][date.getDay()]
     },
-    timeToString(time) {
-      return time == null ? "" : time.getHours() + ":" + (time.getMinutes() < 10 ? "0" : "") + time.getMinutes() + " Uhr"
+    timeToString (time) {
+      return time == null ? '' : time.getHours() + ':' + (time.getMinutes() < 10 ? '0' : '') + time.getMinutes() + ' Uhr'
     },
-    durationToString(millis) {
+    durationToString (millis) {
       var minutes = Math.round(millis / 60000)
       var hours = Math.floor(minutes / 60)
       minutes -= 60 * hours
       var resultList = []
       if (hours > 0) {
-        resultList.push(hours + "h")
+        resultList.push(hours + 'h')
       }
-      if (minutes > 0 || resultList.length == 0) {
-        resultList.push(minutes + "min")
+      if (minutes > 0 || !resultList) {
+        resultList.push(minutes + 'min')
       }
-      return resultList.join(" ")
+      return resultList.join(' ')
+    }
+  },
+  computed: {
+    startTimeString: function () {
+      return this.timeToString(this.startTime)
+    },
+    endTimeString: function () {
+      return this.timeToString(this.endTime)
+    },
+    startWeekdayShort: function () {
+      return this.weekdayShort(this.startTime)
+    },
+    durationString: function () {
+      if (this.endTime != null && this.startTime <= this.endTime) {
+        return this.durationToString(this.endTime - this.startTime)
+      }
+      return ''
     }
   }
 }

@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <div v-for="event in events" :key="event">
-      <EventListItem
-      :description="event.description"
-      :speaker="event.speaker"
-      :location="event.location"
-      :startTime="event.startTime"
-      :endTime="event.endTime"
-      >
-      </EventListItem>
-    </div>
-  </div>
+  <v-timeline align-top dense>
+    <EventListItem v-for="event in events" :key="event"
+    :description="event.description"
+    :speaker="event.speaker"
+    :location="event.location"
+    :startTime="event.startTime"
+    :endTime="event.endTime"
+    >
+    </EventListItem>
+  </v-timeline>
 </template>
 
 <script>

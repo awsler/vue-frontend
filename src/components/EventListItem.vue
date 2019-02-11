@@ -1,18 +1,22 @@
 <template>
-  <div class="event-list-item">
-    <div class="start-time">{{ startWeekdayShort }}, {{ startTimeString }}</div>
-    <div class="left-padded">
-      <div class="description">{{ description }}</div>
-    </div>
-    <div v-if="speaker != null" class="left-padded">
-      <div class="speaker">&#x1f464; {{ speaker }}</div>
-    </div>
-    <div v-if="location != null || endTime != null" class="left-padded top-margin">
-      <div v-if="location != null" class="location">{{ location }}</div>
-      <div v-if="endTime != null" class="duration">{{ durationString }}</div>
-      <div v-if="endTime != null" class="end-time"> &rarr; {{ endTimeString }}</div>
-    </div>
-  </div>
+  <v-timeline-item fill-dot>
+    <v-card class="event-list-item">
+      <div class="start-time">
+        {{ startWeekdayShort }}, {{ startTimeString }}
+      </div>
+      <div class="left-padded">
+        <div class="description">{{ description }}</div>
+      </div>
+      <div v-if="speaker != null" class="left-padded">
+        <div class="speaker"><v-icon>person</v-icon> {{ speaker }}</div>
+      </div>
+      <div v-if="location != null || endTime != null" class="left-padded top-margin">
+        <div v-if="location != null" class="location">{{ location }}</div>
+        <div v-if="endTime != null" class="duration">{{ durationString }}</div>
+        <div v-if="endTime != null" class="end-time"> &rarr; {{ endTimeString }}</div>
+      </div>
+    </v-card>
+  </v-timeline-item>
 </template>
 
 <script>
@@ -83,9 +87,10 @@ export default {
 
 <style>
 .event-list-item {
-  margin: 3em;
+  padding: 0.5em;
   position: relative;
   text-align: left;
+  max-width: 50em;
 }
 .start-time {
   position: absolute;

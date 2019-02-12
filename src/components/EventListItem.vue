@@ -1,19 +1,19 @@
 <template>
-  <v-timeline-item fill-dot>
+  <v-timeline-item fill-dot small right>
+    <span slot="opposite" class="start-time">
+      {{ startWeekdayShort }}, {{ startTimeString }}
+    </span>
     <v-card class="event-list-item">
-      <div class="start-time">
-        {{ startWeekdayShort }}, {{ startTimeString }}
-      </div>
-      <div class="left-padded">
+      <div>
         <div class="description">{{ description }}</div>
       </div>
-      <div v-if="speaker != null" class="left-padded">
+      <div v-if="speaker != null">
         <div class="speaker"><v-icon>person</v-icon> {{ speaker }}</div>
       </div>
-      <div v-if="location != null || endTime != null" class="left-padded top-margin">
-        <div v-if="location != null" class="location">{{ location }}</div>
-        <div v-if="endTime != null" class="duration">{{ durationString }}</div>
-        <div v-if="endTime != null" class="end-time"> &rarr; {{ endTimeString }}</div>
+      <div v-if="location != null || endTime != null" class="top-margin">
+        <div v-if="location != null" class="location label">{{ location }}</div>
+        <div v-if="endTime != null" class="duration label">{{ durationString }}</div>
+        <div v-if="endTime != null" class="end-time label"> &rarr; {{ endTimeString }}</div>
       </div>
     </v-card>
   </v-timeline-item>
@@ -87,13 +87,9 @@ export default {
 
 <style>
 .event-list-item {
-  padding: 0.5em;
-  position: relative;
-  text-align: left;
-  max-width: 50em;
+  padding: 0.5em 1em 1em 1em;
 }
 .start-time {
-  position: absolute;
   font-size: 150%;
 }
 .top-margin {
@@ -113,27 +109,27 @@ export default {
 .speaker {
   display: inline;
 }
-.location {
+.label {
   display: inline;
-  background-color: green;
-  border: green 0.25em solid;
+  border-width: 0.25em;
+  border-style: solid;
   border-radius: 0.5em;
-  color: white;
   white-space: nowrap;
+  margin-right: 0.5em;
+}
+.location {
+  background-color: green;
+  border-color: green;
+  color: white;
 }
 .duration {
-  display: inline;
   background-color: #095375;
-  border: #095375 0.25em solid;
-  border-radius: 0.5em;
+  border-color: #095375;
   color: white;
-  white-space: nowrap;
 }
 .end-time {
-  display: inline;
   background-color: #56c8fd;
-  border: #56c8fd 0.25em solid;
-  border-radius: 0.5em;
-  white-space: nowrap;
+  border-color: #56c8fd;
+  color: black;
 }
 </style>

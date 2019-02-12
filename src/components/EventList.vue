@@ -1,5 +1,5 @@
 <template>
-  <v-timeline align-top dense>
+  <v-timeline>
     <EventListItem v-for="event in events" :key="event"
     :description="event.description"
     :speaker="event.speaker"
